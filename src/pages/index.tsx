@@ -2,12 +2,22 @@ import Head from 'next/head'
 import Image from 'next/image'
 import { Inter } from 'next/font/google'
 import styles from '@/styles/Home.module.css'
-import { useEffect, useRef } from 'react'
-import Intro from './intro'
+import { useState, useEffect } from 'react'
+import Intro from './intro';
+import Main from './main';
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
-  
+  const [introMode, setIntroMode]  = useState(true);
+  useEffect(() => {
+    if (introMode) {
+      setTimeout(() => {
+        setIntroMode(false);
+        console.log(introMode)
+      }, 5500)
+
+    }
+  }, [introMode])
   return (
     <>
       <Head>
@@ -17,7 +27,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
-        <Intro></Intro>
+        { introMode ? <Intro></Intro> : <Main></Main> }
       </main>
     </>
   )
